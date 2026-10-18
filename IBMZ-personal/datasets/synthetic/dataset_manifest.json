@@ -1,8 +1,0 @@
-{
-  "dataset_file": "access_profiles.csv",
-  "sha256": "ce0509c3fd103ce48ea5e79ad32aa2ebd4d32c69ff37e0c2854597fef26e24ea",
-  "record_count": 12000,
-  "seed": 42,
-  "schema_version": "1.0.0",
-  "generated_at_utc": "2026-10-16T06:10:13.581992+00:00"
-}
