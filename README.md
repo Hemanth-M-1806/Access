@@ -4,7 +4,7 @@
 > IBM Z Datathon · Track 2 (AI Secured) · Track 1 (Real-Time AI)  
 > Target Platform: **IBM LinuxONE (s390x)** & IBM Z Mainframe Cloud
 
-[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)](https://python.org)
+[![Python 3.11 - 3.14](https://img.shields.io/badge/python-3.11%20%7C%203.14-blue)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green)](https://fastapi.tiangolo.com)
 [![Memory](https://img.shields.io/badge/RAM-~50MB-brightgreen)](/)
 [![Platform](https://img.shields.io/badge/platform-s390x%20%7C%20x86__64-orange)](/)
@@ -641,7 +641,4 @@ Expected response on LinuxONE:
     "crypto_mode": "CPACF AES-GCM/SHA-256 Accelerated",
     "memory_rss_mb": 48.7
 }
-```
-#   I B M Z - p e r s o n a l  
- #   I B M Z - p e r s o n a l  
- 
+`

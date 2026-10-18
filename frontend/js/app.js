@@ -314,22 +314,6 @@ function setupGlobalEventListeners() {
   document.getElementById('btn-remediate-now')?.addEventListener('click', () => {
     executeRemediation(loadEnterpriseData);
   });
-  // Player Waveform Buttons
-  document.getElementById('btn-player-play')?.addEventListener('click', () => {
-    executeRemediation(loadEnterpriseData);
-  });
-  document.getElementById('btn-player-forward')?.addEventListener('click', () => {
-    openModal('simulator-modal');
-    const simUserSelect = document.getElementById('sim-modal-user-select');
-    if (simUserSelect && state.selectedUserId) simUserSelect.value = state.selectedUserId;
-    showToast('Select promotion target for employee', 'info');
-  });
-  document.getElementById('btn-player-rewind')?.addEventListener('click', () => {
-    if (state.selectedUserId) {
-      selectUser(state.selectedUserId, loadEnterpriseData);
-      showToast('Reset view for selected employee', 'info');
-    }
-  });
 
   // Table Select All Checkbox
   document.getElementById('select-all-checkbox')?.addEventListener('change', (e) => {

@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-ARG BASE_IMAGE=python:3.11-slim-bookworm
+ARG BASE_IMAGE=python:3.14-slim-bookworm
 
 # =============================================================================
 # Stage 1: Build & Dependency Installation Stage

@@ -20,7 +20,28 @@ from backend.data_generator import (
     CRITICAL_PERMISSIONS,
     ROLE_BASELINES,
 )
-from backend.training.feature_schema import APPROVED_FEATURES
+try:
+    from backend.feature_schema import APPROVED_FEATURES
+except ImportError:
+    try:
+        from backend.training.feature_schema import APPROVED_FEATURES
+    except ImportError:
+        APPROVED_FEATURES = [
+            "permission_count",
+            "critical_permission_count",
+            "cross_department_permission_count",
+            "unexpected_admin_count",
+            "permission_changes_90d",
+            "days_since_last_access",
+            "failed_access_attempts_30d",
+            "account_age_days",
+            "access_grant_age_days",
+            "is_service_account",
+            "mfa_enabled",
+            "permissions_above_role_median",
+            "role",
+            "department",
+        ]
 
 DEPARTMENT_PERMISSIONS = {
     "Engineering": {

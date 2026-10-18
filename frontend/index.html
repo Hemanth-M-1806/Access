@@ -19,7 +19,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </head>
 <body>
   <!-- ================================================================= -->
@@ -267,62 +266,11 @@
             </div>
           </div>
 
-          <!-- Call Recording Style Waveform Remediation Widget -->
-          <div class="call-recording-widget">
+          <!-- Remediation & RACF Policy Widget -->
+          <div class="call-recording-widget remediation-card-widget">
             <div class="section-head-row">
               <span class="section-title-text">Remediation & RACF Policy</span>
-              <span style="font-size: 10px; font-weight: 700; color: var(--pastel-blue-accent);" id="policy-ready-badge">Next</span>
-            </div>
-
-            <!-- Waveform Canvas Box -->
-            <div class="waveform-canvas-box">
-              <svg class="waveform-svg-strip" viewBox="0 0 240 40" preserveAspectRatio="none">
-                <!-- Soundwave Bars -->
-                <line x1="10" y1="20" x2="10" y2="28" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="18" y1="14" x2="18" y2="32" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="26" y1="18" x2="26" y2="26" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="34" y1="10" x2="34" y2="36" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="42" y1="12" x2="42" y2="34" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="50" y1="20" x2="50" y2="28" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="58" y1="8" y2="58" y2="38" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="66" y1="16" x2="66" y2="30" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="74" y1="22" x2="74" y2="26" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="82" y1="10" x2="82" y2="36" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="90" y1="14" x2="90" y2="32" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="98" y1="18" x2="98" y2="28" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="106" y1="8" y2="106" y2="38" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="114" y1="12" x2="114" y2="34" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="122" y1="18" x2="122" y2="26" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="130" y1="6" y2="130" y2="38" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="138" y1="14" x2="138" y2="32" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="146" y1="20" x2="146" y2="28" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="154" y1="10" x2="154" y2="36" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="162" y1="16" x2="162" y2="30" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="170" y1="12" x2="170" y2="34" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="178" y1="22" x2="178" y2="26" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="186" y1="8" y2="186" y2="38" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="194" y1="16" x2="194" y2="30" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="202" y1="20" x2="202" y2="28" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="210" y1="12" x2="210" y2="34" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="218" y1="18" x2="218" y2="26" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-                <line x1="226" y1="22" x2="226" y2="26" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-
-              <!-- Red Scrubber Needle Line & Time Indicator -->
-              <div class="waveform-needle-line" id="waveform-needle"></div>
-              <div class="waveform-needle-dot"></div>
-              <span class="waveform-timestamp-sub" id="waveform-time-label">00:32</span>
-            </div>
-
-            <!-- Player Controls -->
-            <div class="player-controls-row">
-              <span class="player-speed-text">1x</span>
-              <div class="player-buttons-group">
-                <button class="player-btn-circle" id="btn-player-rewind" title="Rewind">⟲</button>
-                <button class="player-btn-circle play-remediate" id="btn-player-play" title="Run 1-Click Remediation">▶</button>
-                <button class="player-btn-circle" id="btn-player-forward" title="Fast Forward">⟳</button>
-              </div>
-              <span class="player-speed-text" title="CPACF Hardware Accelerated">⚡</span>
+              <span style="font-size: 10px; font-weight: 700; color: var(--pastel-blue-accent);" id="policy-ready-badge">Policy Ready</span>
             </div>
 
             <!-- 1-Click Remediate Button -->
