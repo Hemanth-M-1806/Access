@@ -1,0 +1,32 @@
+# Python Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest / Test caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node / Frontend builds
+node_modules/
+dist/
+.DS_Store
+
+# Planning docs
+IMPLEMENTATION_PLAN.md
+
+# Datasets & ML Training Scripts (Model artifacts in backend/models/ are preserved)
+datasets/
+backend/training/
+
+# Private SSH Keys & Credentials
+*.pem
+Key1.pem
+
+

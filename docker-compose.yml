@@ -1,0 +1,28 @@
+services:
+  accessdrift:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: accessdrift:latest
+    container_name: accessdrift
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      PYTHONUNBUFFERED: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+      PORT: "8000"
+    init: true
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -fsS
+        - http://127.0.0.1:8000/api/v1/system/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 25s
+    stop_grace_period: 15s
+    security_opt:
+      - no-new-privileges:true
