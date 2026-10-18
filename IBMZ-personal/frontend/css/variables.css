@@ -1,0 +1,90 @@
+/* =====================================================================
+   AccessDrift Enterprise Theme Tokens
+   Clean Modern Dashboard Design (Matching Target Executive Aesthetic)
+   ===================================================================== */
+:root {
+  /* Surface & Background Colors */
+  --bg-app: #EDF1F7;
+  --bg-card: #FFFFFF;
+  --bg-card-subtle: #F8FAFC;
+  --bg-card-hover: #F1F5F9;
+
+  /* Left Dark Slim Rail */
+  --sidebar-bg: #1B1E24;
+  --sidebar-active-bg: #FFFFFF;
+  --sidebar-active-icon: #1B1E24;
+  --sidebar-text-muted: #8E95A5;
+  --sidebar-hover-bg: rgba(255, 255, 255, 0.08);
+
+  /* Target Pastel Card Palette */
+  --pastel-purple: #EDE8F5;
+  --pastel-purple-text: #5B3A9B;
+  --pastel-purple-btn: #FFFFFF;
+  --pastel-purple-accent: #805AD5;
+
+  --pastel-blue: #E1F0F8;
+  --pastel-blue-text: #19678F;
+  --pastel-blue-btn: #FFFFFF;
+  --pastel-blue-accent: #0284C7;
+
+  --pastel-amber: #FDF1D6;
+  --pastel-amber-text: #925C05;
+  --pastel-amber-btn: #FFFFFF;
+  --pastel-amber-accent: #D97706;
+
+  /* Text Colors */
+  --text-main: #1A1D23;
+  --text-title: #111317;
+  --text-secondary: #5E6678;
+  --text-muted: #8C96A8;
+  --text-light: #FFFFFF;
+
+  /* Borders & Dividers */
+  --border-light: #E4E8F0;
+  --border-subtle: #EDF0F5;
+  --border-focus: #0284C7;
+
+  /* Status Colors */
+  --status-pending: #F59E0B;
+  --status-pending-bg: #FEF3C7;
+  --status-completed: #10B981;
+  --status-completed-bg: #D1FAE5;
+  --status-failed: #EF4444;
+  --status-failed-bg: #FEE2E2;
+  --status-info: #0284C7;
+  --status-info-bg: #E0F2FE;
+
+  /* Type Pill Badges */
+  --type-iam-bg: #E2E8F0;
+  --type-iam-text: #334155;
+  --type-call-bg: #E0E7FF;
+  --type-call-text: #4338CA;
+  --type-email-bg: #FEF3C7;
+  --type-email-text: #92400E;
+  --type-sms-bg: #E0F2FE;
+  --type-sms-text: #075985;
+
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Radius & Shadows */
+  --radius-xl: 26px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+  --radius-pill: 9999px;
+
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.08);
+
+  /* Legacy Compat Tokens */
+  --green-compliant: #10B981;
+  --amber-warning: #F59E0B;
+  --red-threat: #EF4444;
+  --red-pulse: #DC2626;
+  --blue-primary: #0F62FE;
+  --cyan-primary: #0284C7;
+}

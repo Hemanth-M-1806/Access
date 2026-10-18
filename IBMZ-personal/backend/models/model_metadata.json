@@ -1,0 +1,118 @@
+{
+  "model_name": "AccessDrift Isolation Forest Entitlement Anomaly Detector",
+  "model_type": "sklearn.pipeline.Pipeline",
+  "detector_type": "sklearn.ensemble.IsolationForest",
+  "created_at_utc": "2026-10-16T07:21:49.224175+00:00",
+  "random_seed": 42,
+  "n_estimators": 200,
+  "selected_threshold": 0.0554974616777927,
+  "threshold_selection_set": "validation",
+  "score_convention": "score = -pipeline.decision_function(X) [higher score indicates higher anomaly risk]",
+  "raw_features": {
+    "numeric_features": [
+      "permission_count",
+      "critical_permission_count",
+      "cross_department_permission_count",
+      "unexpected_admin_count",
+      "permission_changes_90d",
+      "days_since_last_access",
+      "failed_access_attempts_30d",
+      "account_age_days",
+      "access_grant_age_days",
+      "is_service_account",
+      "mfa_enabled",
+      "permissions_above_role_median"
+    ],
+    "categorical_features": [
+      "role",
+      "department"
+    ],
+    "total_raw_features": 14
+  },
+  "transformed_features_dim": 25,
+  "validation_metrics": {
+    "threshold": 0.055497,
+    "precision": 0.9038,
+    "recall": 0.8393,
+    "f1": 0.8704
+  },
+  "test_metrics": {
+    "accuracy": 0.9294,
+    "precision": 0.9002,
+    "recall": 0.8413,
+    "f1": 0.8697,
+    "roc_auc": 0.9721,
+    "pr_auc": 0.9299,
+    "confusion_matrix": [
+      [
+        1249,
+        47
+      ],
+      [
+        80,
+        424
+      ]
+    ],
+    "legitimate_exception_fpr": 0.8056,
+    "normal_profile_fpr": 0.0143,
+    "scenario_recall": {
+      "conflicting_permissions": {
+        "recall": 0.9815,
+        "detected": 53,
+        "total": 54
+      },
+      "cross_department": {
+        "recall": 0.7222,
+        "detected": 65,
+        "total": 90
+      },
+      "dormant_permission": {
+        "recall": 0.7083,
+        "detected": 51,
+        "total": 72
+      },
+      "excessive_admin": {
+        "recall": 1.0,
+        "detected": 90,
+        "total": 90
+      },
+      "expired_temporary_access": {
+        "recall": 0.963,
+        "detected": 52,
+        "total": 54
+      },
+      "privilege_creep": {
+        "recall": 0.7847,
+        "detected": 113,
+        "total": 144
+      }
+    }
+  },
+  "feature_importances": {
+    "cross_department_permission_count": 0.15174,
+    "permissions_above_role_median": 0.07022,
+    "unexpected_admin_count": 0.06029,
+    "permission_changes_90d": 0.04403,
+    "permission_count": 0.0261,
+    "role": 0.01691,
+    "critical_permission_count": 0.01409,
+    "access_grant_age_days": 0.0111,
+    "department": 0.00858,
+    "days_since_last_access": 0.0081,
+    "account_age_days": 0.00601,
+    "failed_access_attempts_30d": 0.00416,
+    "mfa_enabled": 0.00097,
+    "is_service_account": 0.0
+  },
+  "role_baselines_medians": {
+    "Engineering Manager": 5,
+    "Senior Software Engineer": 5,
+    "Frontend Engineer": 3,
+    "DevOps Engineer": 6,
+    "Site Reliability Engineer": 5,
+    "Financial Analyst": 3,
+    "Payroll Specialist": 3,
+    "HR Generalist": 4,
+    "People Operations Manager": 4
+  }
+}

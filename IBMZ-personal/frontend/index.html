@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AccessDrift - AI Entitlement Drift Detection & Zero-Trust Governance</title>
+  <meta name="description" content="AI-powered continuous identity entitlement drift detection and zero-trust governance platform for IBM Z Datathon." />
+
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="/static/css/variables.css" />
+  <link rel="stylesheet" href="/static/css/auth.css" />
+  <link rel="stylesheet" href="/static/css/layout.css" />
+  <link rel="stylesheet" href="/static/css/graph.css" />
+  <link rel="stylesheet" href="/static/css/inspector.css" />
+  <link rel="stylesheet" href="/static/css/modals.css" />
+  <link rel="stylesheet" href="/static/css/toast.css" />
+
+  <!-- Typography & CDN Enhancements -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <!-- ================================================================= -->
+  <!-- 1. Google-Style Enterprise Authentication Screen (Initial View)   -->
+  <!-- ================================================================= -->
+  <div id="auth-view-container" style="display: flex;">
+    <!-- Rendered dynamically by auth.js -->
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- 2. Main Executive Governance Dashboard (Mockup Redesign)           -->
+  <!-- ================================================================= -->
+  <div id="dashboard-view-container" class="dashboard-container" style="display: none;">
+    
+    <!-- Left Slim Navigation Rail (Dark Charcoal) -->
+    <aside class="side-nav-rail">
+      <div class="rail-top">
+        <div class="rail-logo-badge" id="rail-brand-logo" title="AccessDrift Zero-Trust Identity Governance">
+          <span>AD</span>
+        </div>
+
+        <nav class="rail-menu-list">
+          <button class="rail-btn active" id="rail-btn-overview" title="Governance Overview">
+            <span>⊞</span>
+          </button>
+          <button class="rail-btn" id="rail-btn-graph" title="Entitlement Topology Canvas">
+            <span>🕸️</span>
+          </button>
+          <button class="rail-btn" id="rail-btn-roster" title="Identity Directory Table">
+            <span>👥</span>
+          </button>
+          <button class="rail-btn" id="rail-btn-ledger" title="CPACF Blockchain Audit Ledger">
+            <span>🔗</span>
+          </button>
+          <button class="rail-btn" id="rail-btn-telemetry" title="LinuxONE System Telemetry">
+            <span>⚡</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="rail-bottom">
+        <button class="rail-btn-exit" id="btn-rail-signout" title="Sign out of AccessDrift">
+          <span>⎋</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <main class="workspace-wrapper">
+      
+      <!-- Center Content Column -->
+      <section class="center-column">
+        
+        <!-- Top Greeting & Header Controls -->
+        <header class="top-header-bar">
+          <div class="header-greeting">
+            <h1 class="greeting-title" id="greeting-user-name">Hi, Victoria</h1>
+            <p class="greeting-subtitle">Continuous Identity Entitlement Drift Detection & Zero-Trust Governance</p>
+          </div>
+
+          <div class="header-controls">
+            <!-- Search Pill -->
+            <div class="search-pill-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="node-search-input" class="search-input" placeholder="Search employee, role, or entitlement..." />
+            </div>
+
+            <!-- Notification Bell -->
+            <button class="notification-pill-btn" id="btn-notifications-pill" title="Real-time Governance Notifications">
+              <span>🔔</span>
+              <span class="notification-dot"></span>
+            </button>
+
+            <!-- Prominent Branch Selection Menu -->
+            <div class="branch-selector-pill" title="Filter by Enterprise Regional Branch">
+              <span class="branch-pin-icon">📍</span>
+              <select id="branch-select" class="branch-select-native">
+                <option value="all">Global Enterprise (All Branches)</option>
+              </select>
+            </div>
+
+            <!-- Quick Action Pills -->
+            <button class="btn-pill btn-pill-primary" id="btn-open-ingest-modal" title="Upload IAM CSV Spreadsheet">
+              <span>📁</span> Import CSV
+            </button>
+            <button class="btn-pill btn-pill-secondary" id="btn-quick-add-staff" title="Add Single Employee">
+              <span>+</span> Add Staff
+            </button>
+            <button class="btn-pill btn-pill-demo" id="btn-switch-demo" title="Load Enterprise Demo Dataset">
+              Demo Dataset
+            </button>
+          </div>
+        </header>
+
+        <!-- Three Pastel Metric Cards (Matching Mockup) -->
+        <div class="pastel-cards-grid">
+          <!-- Card 1: Lavender (Critical Outliers) -->
+          <div class="pastel-card purple">
+            <div class="pastel-card-left">
+              <span class="pastel-card-label">Critical Drift Outliers</span>
+              <span class="pastel-card-number" id="metric-outliers">0</span>
+              <span class="pastel-card-sub">Isolation Forest ML &bull; τ = 0.055</span>
+            </div>
+            <button class="pastel-card-btn" id="btn-card-inspect">Inspect</button>
+          </div>
+
+          <!-- Card 2: Sky Blue (Monitored Identities) -->
+          <div class="pastel-card blue">
+            <div class="pastel-card-left">
+              <span class="pastel-card-label">Monitored Identities</span>
+              <span class="pastel-card-number" id="metric-total-users">0</span>
+              <span class="pastel-card-sub" id="metric-branches-count">Across 5 Global Branches</span>
+            </div>
+            <button class="pastel-card-btn" id="btn-card-roster">View Roster</button>
+          </div>
+
+          <!-- Card 3: Warm Amber (High Risk Violations) -->
+          <div class="pastel-card amber">
+            <div class="pastel-card-left">
+              <span class="pastel-card-label">High-Risk Violations</span>
+              <span class="pastel-card-number" id="metric-high-risk">0</span>
+              <span class="pastel-card-sub" id="metric-clean-pct">Zero-Trust Verified</span>
+            </div>
+            <button class="pastel-card-btn" id="btn-card-remediate">Check</button>
+          </div>
+        </div>
+
+        <!-- Center Governance Overview Card -->
+        <div class="overview-card">
+          <div class="overview-header">
+            <div class="overview-title-cluster">
+              <h2 class="overview-title">Governance Overview</h2>
+              <span class="overview-badge" id="graph-scope-badge">Global Enterprise</span>
+              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);" id="graph-nodes-count">0 Nodes</span>
+            </div>
+
+            <div class="overview-filters">
+              <button class="filter-pill-btn active" id="tab-view-graph">🕸️ Topology Graph</button>
+              <button class="filter-pill-btn" id="tab-view-table">📑 Directory Table</button>
+              <button class="filter-pill-btn" id="btn-reset-zoom" title="Reset Zoom">⟲ Reset</button>
+              <button class="filter-pill-btn" id="btn-toggle-physics" title="Pause Physics">⏸ Pause</button>
+            </div>
+          </div>
+
+          <!-- Topology Canvas Container -->
+          <div class="canvas-container-box" id="graph-view-container">
+            <canvas id="topology-canvas"></canvas>
+
+            <!-- Blank Workspace Overlay -->
+            <div id="blank-graph-cta" class="blank-graph-cta" style="display: none; position: absolute; inset: 0; align-items: center; justify-content: center; flex-direction: column; background: rgba(255,255,255,0.9); z-index: 10;">
+              <div style="font-size: 32px; margin-bottom: 8px;">🗺️</div>
+              <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 4px;">Zero-Trust Topology Empty</h3>
+              <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 12px;">Import an enterprise IAM CSV roster or load the demo dataset to begin.</p>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn-pill btn-pill-primary" onclick="document.getElementById('btn-open-ingest-modal').click()">+ Import CSV</button>
+                <button class="btn-pill btn-pill-demo" onclick="document.getElementById('btn-switch-demo').click()">Load Demo Dataset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Data Table Card (Styled like Mockup Table) -->
+        <div class="table-card" id="table-card-section">
+          <div class="table-topbar">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <h3 class="table-title">Identity Directory</h3>
+              <span class="overview-badge" id="table-count-badge">0 Employees</span>
+            </div>
+
+            <div style="display: flex; gap: 8px;">
+              <select id="table-filter-role" class="field-select" style="padding: 4px 10px; font-size: 11px; border-radius: var(--radius-pill);">
+                <option value="all">All Roles</option>
+              </select>
+              <select id="table-filter-risk" class="field-select" style="padding: 4px 10px; font-size: 11px; border-radius: var(--radius-pill);">
+                <option value="all">All Risk Levels</option>
+                <option value="critical">🚨 Critical (&ge; 75)</option>
+                <option value="warning">⚠️ Moderate (40-74)</option>
+                <option value="compliant">🛡️ Compliant (&lt; 40)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mockup-table-wrap">
+            <table class="mockup-table">
+              <thead>
+                <tr>
+                  <th style="width: 36px; text-align: center;"><input type="checkbox" class="table-checkbox" id="select-all-checkbox" /></th>
+                  <th>Type</th>
+                  <th>Employee Name</th>
+                  <th>Department & Branch</th>
+                  <th>Status</th>
+                  <th>Risk Score</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="roster-table-body">
+                <!-- Dynamically populated by roster-table.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Right Column Profile & Remediation Inspector (Matching Mockup Right Panel) -->
+      <aside class="right-inspector-panel">
+        <div id="no-user-selected" style="padding: 40px 10px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <div style="font-size: 32px; margin-bottom: 8px;">🎯</div>
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--text-title);">Select an Employee</h4>
+          <p style="font-size: 11px; color: var(--text-muted); line-height: 1.4; margin-top: 4px;">
+            Click any node in the topology canvas or row in the roster directory to inspect entitlement drift.
+          </p>
+        </div>
+
+        <div id="user-selected-content" style="display: none; flex-direction: column; gap: 18px;">
+          <!-- Top Avatar & Name Header -->
+          <div class="inspector-profile-header">
+            <div class="profile-avatar-large-wrap">
+              <div class="profile-avatar-circle" id="inspector-avatar-text">BV</div>
+              <div class="avatar-online-dot"></div>
+            </div>
+            <h3 class="profile-user-name" id="u-name">Bob Vance</h3>
+            <p class="profile-user-role" id="u-role-dept">Engineering Manager &bull; Drift Detected</p>
+
+            <!-- Three Round Action Buttons (Star, Remediate, Explain) -->
+            <div class="profile-actions-row">
+              <button class="action-round-btn star" id="btn-profile-star" title="Bookmark Employee">★</button>
+              <button class="action-round-btn remediate" id="btn-profile-remediate" title="1-Click Privilege Remediation">🛡️</button>
+              <button class="action-round-btn explain" id="btn-profile-explain" title="Explainable AI Telemetry">💬</button>
+            </div>
+          </div>
+
+          <!-- Summarize / Drift Timeline Section (Chat style from mockup) -->
+          <div class="inspector-section-wrap">
+            <div class="section-head-row">
+              <span class="section-title-text">Drift Summary</span>
+              <div class="section-head-tools">
+                <span title="Export Summary">↓</span>
+                <span title="Options">•••</span>
+              </div>
+            </div>
+
+            <div class="drift-chat-list" id="drift-chat-list">
+              <!-- Dynamically populated by inspector.js -->
+            </div>
+          </div>
+
+          <!-- Call Recording Style Waveform Remediation Widget -->
+          <div class="call-recording-widget">
+            <div class="section-head-row">
+              <span class="section-title-text">Remediation & RACF Policy</span>
+              <span style="font-size: 10px; font-weight: 700; color: var(--pastel-blue-accent);" id="policy-ready-badge">Next</span>
+            </div>
+
+            <!-- Waveform Canvas Box -->
+            <div class="waveform-canvas-box">
+              <svg class="waveform-svg-strip" viewBox="0 0 240 40" preserveAspectRatio="none">
+                <!-- Soundwave Bars -->
+                <line x1="10" y1="20" x2="10" y2="28" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="18" y1="14" x2="18" y2="32" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="26" y1="18" x2="26" y2="26" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="34" y1="10" x2="34" y2="36" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="42" y1="12" x2="42" y2="34" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="50" y1="20" x2="50" y2="28" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="58" y1="8" y2="58" y2="38" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="66" y1="16" x2="66" y2="30" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="74" y1="22" x2="74" y2="26" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="82" y1="10" x2="82" y2="36" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="90" y1="14" x2="90" y2="32" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="98" y1="18" x2="98" y2="28" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="106" y1="8" y2="106" y2="38" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="114" y1="12" x2="114" y2="34" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="122" y1="18" x2="122" y2="26" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="130" y1="6" y2="130" y2="38" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="138" y1="14" x2="138" y2="32" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="146" y1="20" x2="146" y2="28" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="154" y1="10" x2="154" y2="36" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="162" y1="16" x2="162" y2="30" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="170" y1="12" x2="170" y2="34" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="178" y1="22" x2="178" y2="26" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="186" y1="8" y2="186" y2="38" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="194" y1="16" x2="194" y2="30" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="202" y1="20" x2="202" y2="28" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="210" y1="12" x2="210" y2="34" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="218" y1="18" x2="218" y2="26" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+                <line x1="226" y1="22" x2="226" y2="26" stroke="#CBD5E1" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+
+              <!-- Red Scrubber Needle Line & Time Indicator -->
+              <div class="waveform-needle-line" id="waveform-needle"></div>
+              <div class="waveform-needle-dot"></div>
+              <span class="waveform-timestamp-sub" id="waveform-time-label">00:32</span>
+            </div>
+
+            <!-- Player Controls -->
+            <div class="player-controls-row">
+              <span class="player-speed-text">1x</span>
+              <div class="player-buttons-group">
+                <button class="player-btn-circle" id="btn-player-rewind" title="Rewind">⟲</button>
+                <button class="player-btn-circle play-remediate" id="btn-player-play" title="Run 1-Click Remediation">▶</button>
+                <button class="player-btn-circle" id="btn-player-forward" title="Fast Forward">⟳</button>
+              </div>
+              <span class="player-speed-text" title="CPACF Hardware Accelerated">⚡</span>
+            </div>
+
+            <!-- 1-Click Remediate Button -->
+            <button class="btn-full-remediate" id="btn-remediate-now">
+              <span>🛡️</span> 1-Click Remediate Privilege Creep
+            </button>
+
+            <!-- Dual Policy Drawer -->
+            <div class="policy-drawer-box" id="policy-output-section" style="display: none;">
+              <div class="policy-drawer-tabs">
+                <button class="policy-tab-item active" id="tab-btn-aws">☁️ AWS IAM JSON</button>
+                <button class="policy-tab-item" id="tab-btn-racf">⚡ IBM Z RACF</button>
+              </div>
+              <pre id="policy-code-block" class="policy-code-pre"></pre>
+              <div style="display: flex; justify-content: flex-end; margin-top: 6px;">
+                <button class="btn-pill btn-pill-secondary" id="btn-copy-policy" style="font-size: 10.5px; padding: 4px 10px;">📋 Copy Code</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </aside>
+
+    </main>
+
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- MODAL 1: Dynamic Roster Ingestion (Batch CSV + Add User)          -->
+  <!-- ================================================================= -->
+  <div class="modal-overlay" id="ingest-modal" style="display: none;">
+    <div class="modal-card lg">
+      <div class="modal-top">
+        <div>
+          <h3 class="modal-title-text">📁 Ingest Enterprise IAM CSV Roster</h3>
+          <p style="font-size: 11px; color: var(--text-muted);">Import employee records via CSV or add individual profiles with real-time ML scoring.</p>
+        </div>
+        <button class="modal-close-icon" data-close-modal="ingest-modal">✕</button>
+      </div>
+
+      <div class="modal-tab-bar">
+        <button class="modal-tab-btn active" id="modal-tab-csv" onclick="document.getElementById('tab-content-csv').style.display='block'; document.getElementById('tab-content-manual').style.display='none'; this.classList.add('active'); document.getElementById('modal-tab-manual').classList.remove('active');">
+          📄 Batch CSV Upload
+        </button>
+        <button class="modal-tab-btn" id="modal-tab-manual" onclick="document.getElementById('tab-content-manual').style.display='block'; document.getElementById('tab-content-csv').style.display='none'; this.classList.add('active'); document.getElementById('modal-tab-csv').classList.remove('active');">
+          👤 Manual Staff Input
+        </button>
+      </div>
+
+      <div class="modal-content-scroll">
+        <!-- Tab A: CSV -->
+        <div id="tab-content-csv">
+          <div class="file-dropzone-box" id="csv-drop-zone">
+            <input type="file" id="csv-file-input" accept=".csv, .txt, text/csv, application/vnd.ms-excel" style="display: none;" />
+            <div class="dropzone-icon">📁</div>
+            <h4 style="font-size: 14px; font-weight: 700;">Drag & Drop Enterprise IAM CSV Roster</h4>
+            <p style="font-size: 11.5px; color: var(--text-muted);">or <button type="button" class="btn-modal-secondary" id="btn-browse-csv">Browse Files</button></p>
+            <span class="dropzone-filename" id="csv-selected-filename">Accepts any standard CSV (.csv, .txt)</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px;">
+            <div class="form-field-group">
+              <label>Default Branch:</label>
+              <select id="csv-branch-select" class="field-select"></select>
+            </div>
+            <div class="form-field-group">
+              <label>Ingestion Mode:</label>
+              <div style="display: flex; gap: 12px; padding: 6px 0; font-size: 11.5px;">
+                <label><input type="radio" name="csv-mode" value="merge" checked /> Merge / Upsert</label>
+                <label><input type="radio" name="csv-mode" value="replace" /> <span style="color: #D97706;">Replace Roster</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer-bar">
+            <button class="btn-modal-secondary" id="btn-modal-dl-template">📄 Download Template CSV</button>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn-modal-secondary" data-close-modal="ingest-modal">Cancel</button>
+              <button class="btn-modal-primary" id="btn-submit-csv-upload" disabled>🚀 Upload & Score Roster</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab B: Manual Add -->
+        <div id="tab-content-manual" style="display: none;">
+          <form id="add-employee-form">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div class="form-field-group">
+                <label>Employee ID:</label>
+                <input type="text" id="new-emp-id" class="field-input" placeholder="e.g. usr_501" required />
+              </div>
+              <div class="form-field-group">
+                <label>Full Name:</label>
+                <input type="text" id="new-emp-name" class="field-input" placeholder="e.g. Evelyn Reed" required />
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;">
+              <div class="form-field-group">
+                <label>Role:</label>
+                <select id="new-emp-role" class="field-select"></select>
+              </div>
+              <div class="form-field-group">
+                <label>Department:</label>
+                <input type="text" id="new-emp-dept" class="field-input" value="Engineering" required />
+              </div>
+            </div>
+
+            <div class="form-field-group" style="margin-top: 8px;">
+              <label>Branch:</label>
+              <select id="new-emp-branch" class="field-select"></select>
+            </div>
+
+            <div style="margin-top: 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label style="font-size: 11.5px; font-weight: 600;">Assigned Entitlements:</label>
+                <button type="button" class="btn-modal-secondary" id="btn-set-baseline-perms" style="padding: 2px 8px; font-size: 10px;">Select Baseline</button>
+              </div>
+              <div id="new-emp-perms-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; max-height: 140px; overflow-y: auto; padding: 6px; border: 1px solid var(--border-light); border-radius: 8px;"></div>
+            </div>
+
+            <div class="modal-footer-bar">
+              <button type="button" class="btn-modal-secondary" data-close-modal="ingest-modal">Cancel</button>
+              <button type="submit" class="btn-modal-primary">Register & Score Employee</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- MODAL 2: Privilege Creep Simulator                                -->
+  <!-- ================================================================= -->
+  <div class="modal-overlay" id="simulator-modal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-top">
+        <div>
+          <h3 class="modal-title-text">⚡ Simulate Role Promotion</h3>
+          <p style="font-size: 11px; color: var(--text-muted);">Simulate an employee moving between roles to inspect immediate drift accumulation.</p>
+        </div>
+        <button class="modal-close-icon" data-close-modal="simulator-modal">✕</button>
+      </div>
+
+      <div class="modal-content-scroll">
+        <form id="simulator-form">
+          <div class="form-field-group">
+            <label>Select Target Employee:</label>
+            <select id="sim-modal-user-select" class="field-select"></select>
+          </div>
+
+          <div class="form-field-group" style="margin-top: 8px;">
+            <label>Promote to New Role:</label>
+            <select id="sim-modal-role-select" class="field-select"></select>
+          </div>
+
+          <div class="form-field-group" style="margin-top: 8px;">
+            <label>Target Department (optional):</label>
+            <input type="text" id="sim-modal-dept-input" class="field-input" placeholder="Leave blank to use default" />
+          </div>
+
+          <div class="modal-footer-bar">
+            <button type="button" class="btn-modal-secondary" data-close-modal="simulator-modal">Cancel</button>
+            <button type="submit" class="btn-modal-primary">Simulate Promotion</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- MODAL 3: SHA-256 CPACF Blockchain Audit Ledger                    -->
+  <!-- ================================================================= -->
+  <div class="modal-overlay" id="ledger-modal" style="display: none;">
+    <div class="modal-card xl">
+      <div class="modal-top">
+        <div>
+          <h3 class="modal-title-text">🔗 Tamper-Evident Blockchain Audit Ledger</h3>
+          <p style="font-size: 11px; color: var(--text-muted);">Cryptographically verified audit trail powered by IBM Z CPACF SHA-256 hardware hashing.</p>
+        </div>
+        <button class="modal-close-icon" data-close-modal="ledger-modal">✕</button>
+      </div>
+
+      <div class="modal-content-scroll" style="max-height: 70vh;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span style="font-size: 12px; font-weight: 700;" id="ledger-total-blocks">0 Blocks</span>
+            <span class="overview-badge" style="background: #D1FAE5; color: #065F46;" id="ledger-integrity-status">✓ Chain Integrity Valid</span>
+          </div>
+          <span style="font-size: 11px; font-family: var(--font-mono); color: var(--text-muted);" id="ledger-crypto-mode">CPACF Vault Active</span>
+        </div>
+
+        <div id="ledger-blocks-container" style="display: flex; flex-direction: column; gap: 8px;">
+          <!-- Blocks populated by loadLedgerBlocks -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core Scripts -->
+  <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>

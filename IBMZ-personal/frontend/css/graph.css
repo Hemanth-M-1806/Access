@@ -1,0 +1,219 @@
+/* =====================================================================
+   Topology Force Graph & Visualizer CSS
+   Ultra-Smooth 60FPS Performance Optimizations
+   ===================================================================== */
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 1fr 410px;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Responsive: stack on smaller screens */
+@media (max-width: 1100px) {
+  .workspace-grid {
+    grid-template-columns: 1fr 340px;
+  }
+}
+
+@media (max-width: 900px) {
+  .workspace-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    overflow: visible;
+    flex: none;
+  }
+
+  .inspector-card-wrapper {
+    max-height: 500px;
+  }
+}
+
+.graph-card-wrapper, .table-card-wrapper {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.card-topbar {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.card-title-cluster {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-title-text {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10.5px;
+  color: var(--text-secondary);
+}
+
+.legend-bullet {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.bullet-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.bullet-dot.safe { background: var(--green-compliant); }
+.bullet-dot.warn { background: var(--amber-warning); }
+.bullet-dot.drift { background: var(--red-threat); }
+.bullet-dot.perm { background: var(--cyan-primary); border-radius: 2px; }
+.bullet-line.drift { width: 12px; height: 2px; background: var(--red-threat); }
+
+/* Canvas Viewport */
+.canvas-holder {
+  position: relative;
+  flex: 1;
+  background: radial-gradient(circle at 50% 50%, #0f182c 0%, #060910 100%);
+  overflow: hidden;
+  cursor: grab;
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+  contain: strict;
+}
+
+.canvas-holder:active {
+  cursor: grabbing;
+}
+
+#topology-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  min-height: 300px;
+}
+
+@media (max-width: 900px) {
+  .canvas-holder {
+    min-height: 380px;
+  }
+}
+
+/* Floating Controls */
+.viewport-floating-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+}
+
+.control-icon-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: var(--transition-fast);
+}
+
+.control-icon-btn:hover {
+  background: var(--bg-card-hover);
+  color: var(--cyan-primary);
+  border-color: var(--cyan-primary);
+}
+
+.canvas-tip-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  font-size: 10.5px;
+  color: var(--text-secondary);
+  background: rgba(10, 15, 27, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+  pointer-events: none;
+}
+
+/* Tooltip */
+.hover-tooltip-card {
+  position: absolute;
+  padding: 7px 11px;
+  background: rgba(15, 23, 42, 0.96);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--cyan-primary);
+  border-radius: 6px;
+  font-size: 10.5px;
+  color: #fff;
+  pointer-events: none;
+  z-index: 50;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+}
+
+/* Blank Graph Overlay */
+.blank-graph-cta {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 9, 16, 0.85);
+  backdrop-filter: blur(4px);
+  text-align: center;
+  padding: 20px;
+  z-index: 5;
+}
+
+.blank-graph-cta .cta-icon {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.blank-graph-cta h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+.blank-graph-cta p {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  max-width: 320px;
+  margin-bottom: 16px;
+}
+
+.cta-button-row {
+  display: flex;
+  gap: 10px;
+}

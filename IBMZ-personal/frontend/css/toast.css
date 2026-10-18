@@ -1,0 +1,104 @@
+/* =====================================================================
+   Toast Notifications & Table CSS
+   ===================================================================== */
+.toast-shelf {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 2000;
+  pointer-events: none;
+}
+
+.toast-pill {
+  padding: 9px 14px;
+  background: rgba(14, 21, 38, 0.96);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 11.5px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+  animation: toastSlide 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  max-width: 360px;
+}
+
+.toast-pill.success { border-color: var(--green-compliant); }
+.toast-pill.error { border-color: var(--red-threat); }
+.toast-pill.warning { border-color: var(--amber-warning); }
+.toast-pill.info { border-color: var(--cyan-primary); }
+
+@keyframes toastSlide {
+  from { transform: translateX(25px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Data Table */
+.table-scroll-wrap {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+  padding: 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.enterprise-data-table {
+  width: 100%;
+  min-width: 600px; /* Prevent columns squishing */
+  border-collapse: collapse;
+  font-size: 11px;
+  table-layout: auto;
+}
+
+.enterprise-data-table th {
+  padding: 8px 10px;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 9.5px;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-default);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.enterprise-data-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.enterprise-data-table tr:hover td {
+  background: var(--bg-card-hover);
+  color: #fff;
+}
+
+.enterprise-data-table tr.active-row td {
+  background: rgba(0, 229, 255, 0.08);
+  border-left: 2px solid var(--cyan-primary);
+}
+
+/* Responsive: show scrollbar hint on mobile */
+@media (max-width: 900px) {
+  .table-card-wrapper {
+    min-height: 300px;
+  }
+
+  .enterprise-data-table th:nth-child(n+5),
+  .enterprise-data-table td:nth-child(n+5) {
+    display: none; /* Hide lower-priority columns on mobile */
+  }
+}
